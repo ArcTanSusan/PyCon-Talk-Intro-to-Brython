@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta charset="iso-8859-1">
+<script src="/src/brython.js"></script>
+
+</head>
+<body onLoad="brython()">
+<h1>Local storage</h1>
+Edit values, then close the browser and open it again, the values are stored locally
+<p>
+<script type="text/python">
+from browser import doc
+from browser.local_storage import storage
+from browser.html import *
+
+def on_complete(req):
+    log(req.text)
+
+def update(ev):
+    elt = ev.target
+    print('store',ev.target.id)
+    storage[elt.id]=elt.value
+    log(storage[elt.id])
+
+nb_cols = 3
+nb_lines = 5
+
+t = TABLE()
+tb = TBODY()
+for i in range(nb_lines):
+    row = TR()
+    for j in range(nb_cols):
+        cell_id = "cell_%i_%i" %(i,j)
+        try:
+            value = storage[cell_id]
+        except KeyError:
+            value = ""
+        field = INPUT(id=cell_id,value=value)
+        field.bind('change',update)
+        row <= TD(field)
+    tb <= row
+t <= tb
+doc <= t
+
+</script>
+</body>
+</html>

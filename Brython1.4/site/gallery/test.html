@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<meta charset="iso-8859-1">
+<head>
+<style>
+body,td,th{font-family:sans-serif}
+a.sort_link{margin-left:10px;text-decoration:none}
+</style>
+
+<script type="text/javascript" src="../../src/brython_builtins.js"></script>
+<script type="text/javascript" src="../../src/version_info.js"></script>
+<script type="text/javascript" src="../../src/py2js.js"></script>
+<script type="text/javascript" src="../../src/py_object.js"></script>
+<script type="text/javascript" src="../../src/py_type.js"></script>
+<script type="text/javascript" src="../../src/py_utils.js"></script>
+<script type="text/javascript" src="../../src/py_builtin_functions.js"></script>
+<script type="text/javascript" src="../../src/py_set.js"></script>
+<script type="text/javascript" src="../../src/js_objects.js"></script>
+<script type="text/javascript" src="../../src/py_import.js"></script>
+
+<script type="text/javascript" src="../../src/py_int.js"></script>
+<script type="text/javascript" src="../../src/py_float.js"></script>
+<script type="text/javascript" src="../../src/py_dict.js"></script>
+<script type="text/javascript" src="../../src/py_list.js"></script>
+<script type="text/javascript" src="../../src/py_string.js"></script>
+<script type="text/javascript" src="../../src/py_dom.js"></script>
+
+</head>
+<body onLoad="brython(2)">
+<script type="text/python3">
+def bar(z):
+    def foo(x):
+        print(x*2,z)
+    foo(z)
+bar(15)
+</script>
+</body>
+</html>

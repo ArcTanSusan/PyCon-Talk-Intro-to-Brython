@@ -1,0 +1,40 @@
+<html>
+<head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+</head>
+
+<body>
+<div class ="one_comment" id="comment1">some sample comment #1 here</div>
+<div class ="one_comment" id="comment2">some sample comment #2 here</div>
+<div class ="one_comment" id="comment3">some sample comment #3 here</div>
+<div class ="one_comment" id="comment4">some sample comment #4 here</div>
+<div class ="one_comment" id="comment5">some sample comment #5 here</div>
+<div class ="one_comment" id="comment6">some sample comment #6 here</div>
+<div class ="one_comment" id="comment7">some sample comment #7 here</div>
+<div class ="one_comment" id="comment8">some sample comment #8 here</div>
+<div class ="one_comment" id="comment9">some sample comment #9 here</div>
+<div class ="one_comment" id="comment10">some sample comment #10 here</div>
+<div class ="one_comment" id="comment11">some sample comment #11 here</div>
+<div class ="one_comment" id="comment12">some sample comment #12 here</div>
+<div class ="one_comment" id="comment13">some sample comment #13 here</div>
+<div class ="one_comment" id="comment14">some sample comment #14 here</div>
+<div class ="one_comment" id="comment15">some sample comment #15 here</div>
+<div class ="one_comment" id="comment16">some sample comment #16 here</div>
+<div class ="one_comment" id="comment17">some sample comment #17 here</div>
+<div class ="one_comment" id="comment18">some sample comment #18 here</div>
+<div class ="one_comment" id="comment19">some sample comment #19 here</div>
+<div class ="one_comment" id="comment20">some sample comment #20 here</div>
+<button class="show_more">Show More</button>
+</body>
+
+<script type="text/javascript">
+// hide ALL comments on page load.
+$(".one_comment").hide();
+var show_more_button = $(".show_more");
+var last_num_shown = 1;
+show_more_button.click(function() {
+    $("#comment"+last_num_shown.toString()).show();
+    last_num_shown += 1;
+});
+</script>
+</html>

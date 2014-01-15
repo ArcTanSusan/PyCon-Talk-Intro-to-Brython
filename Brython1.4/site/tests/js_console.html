@@ -1,0 +1,65 @@
+<html>
+<head>
+<meta charset="iso-8859-1">
+<link rel="stylesheet" href="../brython.css">
+
+<script>
+function log(data){
+    document.getElementById('console_js').value += data+'\n'
+}
+
+function run_js(){
+    document.getElementById("console_js").value=''
+    var src_elt = document.getElementById("src_js")
+    var src = src_elt.value
+    t0 = new Date()
+    t0 = t0.getTime()
+    try{eval(src)}
+    catch(err){log(err.message)}
+    t1 = new Date()
+    t1 = t1.getTime()
+    log('<done in '+(t1-t0)+' ms>')
+}
+</script>
+</head>
+<body>
+<center>
+<table id="banner" cellpadding=0 cellspacing=0>
+<tr>
+<td><a class="banner" href="/index.html">Home</a></td>
+<td><a class="banner" href="/tests/console_en.html">Console</a></td>
+<td><a class="banner" href="/gallery/gallery_en.html">Gallery</a></td>
+<td><a class="banner" href="/doc/en/index.html">Documentation</a>
+<td><a class="banner" href="http://code.google.com/p/brython/downloads/list" target="_blank">Download</a></td>
+<td><a class="banner" href="http://code.google.com/p/brython/" target="_blank">Development</a></td>
+<td><a class="banner" href="/groups_en.html" target="_blank">Groups</a></td>
+</tr>
+</table>
+
+<div style="text-align:center">
+<img src="../brython.png"></img><br><b>browser python</b>
+</div>
+
+<table width=80%>
+<tr><td style="text-align:center"><b>Javascript</b>
+</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><textarea id="src_js" cols=60 rows=10>function inspect(elt){
+ var attrs = []
+ for(var attr in elt){attrs.push([attr,elt[attr]])}
+ attrs.sort()
+ for(var i=0;i<attrs.length;i++){log(attrs[i])}
+}
+log(document.body.tagName)
+log(Node)
+</textarea></td>
+<td><button onClick="run_js()">run</button>
+<td><textarea id="console_js" cols=70 rows=10></textarea></td>
+</tr>
+
+</table>
+</center>
+</body>
+</html>

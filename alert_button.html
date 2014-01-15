@@ -1,0 +1,17 @@
+<html>
+<head>
+<script src="Brython1.4/src/brython.js"></script>
+</head>
+<body onload="brython()">
+<script type="text/python">
+from browser import doc
+def echo():
+    alert(doc["zone"].value)
+    
+from browser.html import A,B
+doc <= B("Brython ")+"is an implementation of "
+doc <= A("Python",href="http://www.python.org")+" for web browsers"
+</script>
+<input id="zone"><button onclick="echo()">Click Here</button>
+</body>
+</html>

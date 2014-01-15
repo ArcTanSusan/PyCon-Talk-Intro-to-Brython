@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<meta charset="iso-8859-1">
+<head>
+<style>
+body,td,th{font-family:sans-serif}
+a.sort_link{margin-left:10px;text-decoration:none}
+</style>
+
+<script type="text/javascript" src="../../src/brython.js"></script>
+
+</head>
+<body onLoad="brython(2)">
+
+<div id="result">(empty)</div>
+<button onClick="go('ajax_data.txt')">get text file</button>
+<button onClick="go('i_dont_exist.txt')">file not found</button>
+<button onClick="go('/cgi-bin/get_test.py')">GET request</button>
+<button onClick="post('/cgi-bin/post_test.py')">POST request</button>
+<button onClick="go('/cgi-bin/timeout.py')">timeout</button>
+
+<script id="ascript" type="text/python">
+from browser import ajax,doc
+
+def on_complete(req):
+    print(req.readyState)
+    print('status',req.status)
+    if req.status==200 or req.status==0:
+        doc["result"].html = req.text
+    else:
+        doc["result"].html = "error "+req.text
+
+def err_msg():
+    doc["result"].html = "server didn't reply after %s seconds" %timeout
+
+timeout = 4
+
+def go(url):
+    req = ajax.ajax()
+    req.bind('complete',on_complete)
+    req.set_timeout(timeout,err_msg)
+    req.open('GET',url,True)
+    req.send()
+
+def post(url):
+    req = ajax.ajax()
+    req.bind('complete',on_complete)
+    req.set_timeout(timeout,err_msg)
+    req.open('POST',url,True)
+    req.set_header('content-type','application/x-www-form-urlencoded')
+    req.send({'foo':34})
+
+</script>
+
+</body>
+</html>

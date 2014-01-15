@@ -1,0 +1,99 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="utf-8">
+<title>Brython documentation</title>
+<link rel="stylesheet" href="../doc_brython.css">
+
+<script src="/src/brython.js"></script>
+
+<script type="text/python3">
+from browser import doc
+from ... import header
+header.show('../../')
+
+import browser.markdown as markdown
+import time
+
+def load(url,target):
+    # fake query string to bypass browser cache
+    qs = '?foo=%s' %time.time()
+    try:
+        mk,scripts = markdown.mark(open(url+qs).read())
+    except IOError:
+        doc[target].html = "Page %s not found" %url
+        return False
+    doc[target].html = mk
+    for script in scripts:
+        exec(script,globals())
+    return False
+
+language = "es"
+</script>
+
+</head>
+<body onLoad="brython(1);load('intro.md','content')">
+
+<table id="banner" cellpadding=0 cellspacing=0>
+<tr id="banner_row">
+</tr>
+</table>
+
+<table width="100%">
+<tr>
+<td style="width:20%;vertical-align:top;">
+<h4><a class="navig" href="#" onClick="load('intro.md','content')">Introducción</a></h4>
+<h4><a class="navig" href="#" onClick="load('syntax.md','content')">Sintaxis, palabras clave y funciones integradas</a></h4>
+
+<h4>Interfaz del navegador</h4>
+<div style="padding-left:10px;">
+<a class="navig" href="#" onClick="load('create.md','content')">Creando un documento</a>
+<br><a class="navig" href="#" onClick="load('access.md','content')">Accediendo a los elementos</a>
+<br><a class="navig" href="#" onClick="load('attributes.md','content')">Atributos y métodos</a>
+<br><a class="navig" href="#" onClick="load('events.md','content')">Eventos</a>
+<br><a class="navig" href="#" onClick="load('query.md','content')">Query</a>
+<br><a class="navig" href="#" onClick="load('jsobjects.md','content')">Usando objetos y librerías Javascript</a>
+
+<h4>Librerías</h4>
+<a class="navig" href="#" onClick="load('ajax.md','content')">ajax</a>
+<br><a class="navig" href="#" onClick="load('html.md','content')">html</a>
+<br><a class="navig" href="#" onClick="load('local_storage.md','content')">local_storage</a>
+<br><a class="navig" href="#" onClick="load('markdown.md','content')">markdown</a>
+<br><a class="navig" href="#" onClick="load('svg.md','content')">svg</a>
+<br><a class="navig" href="#" onClick="load('time.md','content')">time</a>
+<br><a class="navig" href="#" onClick="load('websockets.md','content')">websocket</a>
+</div>
+<h4>Trabajando con Brython</h4>
+<div style="padding-left:10px;">
+<a class="navig" href="#" onClick="load('dev_env.md','content')">Installando el entorno de desarrollo</a>
+<br><a class="navig" href="#" onClick="load('test.md','content')">Probando y depurando</a>
+<br><a class="navig" href="#" onClick="load('deploy.md','content')">Desplegando una aplicación</a></div>
+
+<h4>Cookbook</h4>
+<div style="padding-left:10px;">
+<a class="navig" href="#" onClick="load('cookbook/hello_world.md','content')">Hola mundo !</a>
+<br><a class="navig" href="#" onClick="load('cookbook/content_in_div.md','content')">Insertar contenido en un elemento</a>
+<br><a class="navig" href="#" onClick="load('cookbook/basic_markup.md','content')">Marcado HTML (bold,italic...)</a>
+<br><a class="navig" href="#" onClick="load('cookbook/table.md','content')">Tabla HTML</a>
+<br><a class="navig" href="#" onClick="load('cookbook/validate_form.md','content')">Validando un formulario</a>
+<br><a class="navig" href="#" onClick="load('cookbook/drag_drop.md','content')">Drag and drop</a>
+<br><a class="navig" href="#" onClick="load('cookbook/get_content.md','content')">Obteniendo el contenido de un elemento</a>
+<br><a class="navig" href="#" onClick="load('cookbook/read_file.md','content')">Leyendo el contenido de un fichero</a>
+<br><a class="navig" href="#" onClick="load('cookbook/local_storage.md','content')">Almacenando objetos de forma local</a>
+<br><a class="navig" href="#" onClick="load('cookbook/read_text_from_imagemap.md','content')">Ejemplo de onmouseover</a>
+</div>
+
+<h4>Notas de la implementación</h4>
+<div style="padding-left:10px;">
+<a class="navig" href="#" onClick="load('modele.md','content')">Compilando y ejecutando</a>
+<br><a class="navig" href="#" onClick="load('implem.md','content')">Conversión de sintaxis Python &rarr; JS</a>
+<br><a class="navig" href="#" onClick="load('import.md','content')">Implementación del <tt>import</tt></a>
+</div>
+</td>
+
+<td id="content" style="vertical-align:top;">
+&nbsp;
+</td>
+</tr>
+</table>
+</html>
