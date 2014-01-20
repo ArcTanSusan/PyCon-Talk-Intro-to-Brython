@@ -1,12 +1,13 @@
 <html>
 <head>
-<script src="http://www.brython.info/src/brython.js"></script>
+<script src="Brython1.4/src/brython.js"></script>
+<link rel="stylesheet" type="text/css" href='css/pagination.css'>
 </head>
 
-<body onload="brython()">
-<div class ="one_comment" id="comment1">some sample comment #1 here</div>
-<div class ="one_comment" id="comment2">some sample comment #2 here</div>
-<div class ="one_comment" id="comment3">some sample comment #3 here</div>
+<body onload="brython(2)">
+<div class ="preloaded_comment" id="comment1">some sample comment #1 here</div>
+<div class ="preloaded_comment" id="comment2">some sample comment #2 here</div>
+<div class ="preloaded_comment" id="comment3">some sample comment #3 here</div>
 <div class ="one_comment" id="comment4">some sample comment #4 here</div>
 <div class ="one_comment" id="comment5">some sample comment #5 here</div>
 <div class ="one_comment" id="comment6">some sample comment #6 here</div>
@@ -29,10 +30,30 @@
 
 <script type="text/python">
 from browser import doc, html
-alert("hello world!")
-alert(doc[ZONE])
-# alert(html)
-# data_classes= doc[html.class]
-# alert(data_classes);
+from browser.local_storage import storage
+
+# hide ALL comments on page load.
+all_comments =  doc.get(selector='.one_comment') # an array object
+for comment in all_comments:
+    comment.classList.add("hidden")
+
+storage['count'] = 4
+count =str(storage['count'])
+
+button = doc.get(selector='.show_more')
+
+def show_additional_comment(ev):
+    next_comment_num = '#comment'+count
+    next_comment = doc.get(selector=next_comment_num)
+    for comment in next_comment:
+        comment.classList.remove("hidden")
+        comment.classList.add("visible")
+    #alert(count)
+    # count = int(count)
+    #alert(count)
+    #alert(type(count))
+    count +=1
+
+button[0].bind('click', show_additional_comment)
 </script>
 </html>

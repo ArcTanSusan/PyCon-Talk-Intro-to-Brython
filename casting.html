@@ -1,0 +1,25 @@
+<html>
+<head>
+<script src="Brython1.4/src/brython.js"></script>
+</head>
+
+<body onload="brython()">
+</body>
+
+<script type="text/python">
+"""
+    Type casting and concatenating types behaves unexpectedly.
+"""
+
+from browser import doc, html
+
+start_num =1
+
+def show_popup(start_num):
+    alert("BEFORE: "  + str(start_num))     # start_num = 1
+    start_num = 42
+    alert("AFTER: " + str(start_num))       # start_num = 42
+show_popup(start_num)
+
+</script>
+</html>
