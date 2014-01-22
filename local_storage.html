@@ -1,0 +1,40 @@
+<html>
+<head>
+<script src="Brython1.4/src/brython.js"></script>
+</head>
+
+<body onload="brython(1)">
+</body>
+<script type="text/python">
+from browser import doc
+from browser.local_storage import storage
+from browser.html import *
+
+def update(ev):
+    elt = ev.target
+    print('store',ev.target.id)
+    storage[elt.id]=elt.value
+    log(storage[elt.id])
+    log('ev.target:' + ev.target)
+
+nb_cols = 3
+nb_lines = 5
+
+t = TABLE()
+tb = TBODY()
+for i in range(nb_lines):
+    row = TR()
+    for j in range(nb_cols):
+        cell_id = "cell_%i_%i" %(i,j)
+        try:
+            value = storage[cell_id]
+        except KeyError:
+            value = ""
+        field = INPUT(id=cell_id,value=value)
+        field.bind('change',update)
+        row <= TD(field)
+    tb <= row
+t <= tb
+doc <= t
+</script>
+</html>

@@ -42,16 +42,17 @@ count =str(storage['count'])
 
 button = doc.get(selector='.show_more')
 
-def show_additional_comment(ev):
+def show_additional_comment(count):
+    alert(count)
     next_comment_num = '#comment'+count
     next_comment = doc.get(selector=next_comment_num)
     for comment in next_comment:
         comment.classList.remove("hidden")
         comment.classList.add("visible")
-    #alert(count)
+    # alert(count)
     # count = int(count)
-    #alert(count)
-    #alert(type(count))
+    # alert(count)
+    # alert(type(count))
     count +=1
 
 button[0].bind('click', show_additional_comment)
