@@ -1,0 +1,22 @@
+<html>
+<head>
+<script src="Brython1.4/src/brython.js"></script>
+</head>
+
+<body onload="brython()">
+</body>
+
+<script type="text/python">
+from browser import doc, html
+items = ['one', 'two', 'three']
+sel = SELECT()
+for i, elt in enumerate(items):
+    sel <= OPTION(elt, value = i)
+doc <= sel
+
+link = A('Python', href='http://www.python.org')
+doc <= 'Official Python Website: ' + link
+doc <= P() + 'I repeat: the site is ' + link
+
+</script>
+</html>
