@@ -42,13 +42,14 @@ count =str(storage['count'])
 
 button = doc.get(selector='.show_more')
 
-def show_additional_comment(count):
-    alert(count)
-    next_comment_num = '#comment'+count
+def show_additional_comment(ev):
+    next_comment_num = '#comment'+str(storage['count']))
     next_comment = doc.get(selector=next_comment_num)
     for comment in next_comment:
         comment.classList.remove("hidden")
         comment.classList.add("visible")
+    storage['count'] = 4
+    count =str(storage['count'])
     # alert(count)
     # count = int(count)
     # alert(count)
