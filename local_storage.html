@@ -9,6 +9,7 @@
 from browser import doc
 from browser.local_storage import storage
 from browser.html import *
+from browser import html
 
 def update(ev):
     elt = ev.target
@@ -36,5 +37,17 @@ for i in range(nb_lines):
     tb <= row
 t <= tb
 doc <= t
+
+# More examples of how to generate html elements
+
+link1 = html.A('Brython', href='http://www.brython.info')
+link2 = html.A(html.B('Python'), href='http://www.python.org')
+d = html.DIV('Brython',Id="zone",Class="container")
+doc <=d
+
+link = A('Python', href='http://www.python.org')
+doc <= 'Official Python Website: ' + link
+doc <= P() + 'I repeat: the site is:  ' + link
+
 </script>
 </html>

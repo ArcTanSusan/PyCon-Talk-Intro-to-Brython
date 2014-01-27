@@ -4,12 +4,12 @@
 <link rel="stylesheet" type="text/css" href='css/base.css'>
 </head>
 
-<body onload="brython(2)">
+<body onload="brython(1)">
     <header id="header">
                 <h1>todos</h1>
                 <input id="new-todo" placeholder="What needs to be done?" autofocus="">
     </header>
-    <input classs="submit_button" type="checkbox" name="submit" value="submit">Submit
+    <input class="submit_button" type="checkbox" name="submit" value="submit">Submit
     <section id="main">
             <ul id="todo-list">
                 <li>
@@ -35,11 +35,22 @@
 from browser import doc, html
 from browser.local_storage import storage
 
+def print_hello(ev):
+    new_to_do_item = doc.get(selector='#new-todo')
+    new_to_do_value = new_to_do_item[0].value
+    whole_list = doc.get(selector='#todo-list')
+    # Generate a new to-do item view using the Brython html object
+    new_view = html.LI()
+    new_view <= html.DIV(Class="view")
+    new_view <= html.INPUT(Class="toggle", type="checkbox")
+    new_view <= html.LABEL(new_to_do_value)
+    new_view <=html.BUTTON(Class="destroy")
+    whole_list[0] <= new_view
+    new_to_do_item[0].value = ""
 
-button[0].bind('click', print_hello)
-
-def print_hello():
-    print("hello world")
+submit_butn = doc.get(selector='.submit_button')
+print(submit_butn)
+submit_butn[0].bind('click', print_hello)
 
 </script>
 </html>

@@ -4,6 +4,21 @@ body {
     padding: 0;
 }
 
+button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 100%;
+    vertical-align: baseline;
+    font-family: inherit;
+    color: inherit;
+    -webkit-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+}
+
 body {
     font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
     line-height: 1.4em;
@@ -149,7 +164,7 @@ label[for='toggle-all'] {
 }
 
 #toggle-all:before {
-    content: '»';
+    content: '>>';
     font-size: 28px;
     color: #d9d9d9;
     padding: 0 25px 7px;

@@ -1,13 +1,35 @@
 <html>
 <head>
-<script src="Brython1.4/src/brython.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href='css/base.css'>
 </head>
 
-<body onload="brython()">
+<body onload="brython(1)">
+    <header id="header">
+                <h1>todos</h1>
+                <input id="new-todo" placeholder="What needs to be done?" autofocus="">
+    </header>
+    <input class="submit_button" type="checkbox" name="submit" value="submit">Submit
+    <section id="main">
+            <ul id="todo-list">
+                <li>
+                <div class="view">
+                    <input class="toggle" type="checkbox">
+                    <label>finish brython app: to-do list</label>
+                    <button class="destroy"></button>
+                </div>
+                <input class="edit" value="finish brython app: to-do list">
+                </li><li>
+                <div class="view">
+                    <input class="toggle" type="checkbox">
+                    <label>make the pycon presentation slides</label>
+                    <button class="destroy"></button>
+                </div>
+                <input class="edit" value="make the pycon presentation slides">
+                </li>
+            </ul>
+    </section>
 </body>
 
-<script type="text/python">
-<input id="new-todo" placeholder="What needs to be done?" autofocus="">
-
+<script type="text/javascript">
 </script>
-</html>
