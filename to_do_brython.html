@@ -15,18 +15,18 @@
             <ul id="todo-list">
                 <li>
                 <div class="view">
-                    <input class="toggle" type="checkbox">
-                    <label>finish brython app: to-do list</label>
+                    <input class="toggle" type="checkbox"  id="1">
+                    <label class="to_do_text" id="label_1">finish brython app: to-do list</label>
                     <button class="destroy"></button>
                 </div>
                 <input class="edit" value="finish brython app: to-do list">
                 </li><li>
                 <div class="view">
-                    <input class="toggle" type="checkbox">
-                    <label>make the pycon presentation slides</label>
+                    <input class="toggle" type="checkbox" id="2">
+                    <label class="to_do_text" id="label_2">make tea</label>
                     <button class="destroy"></button>
                 </div>
-                <input class="edit" value="make the pycon presentation slides">
+                <input class="edit" value="make the pycon presentation slides" >
                 </li>
             </ul>
     </section>
@@ -36,22 +36,46 @@
 from browser import doc, html
 from browser.local_storage import storage
 
-def print_hello(ev):
+# Bind all the checkboxes (just 2) to the event handler.
+# bind_complete_to_checkbox()
+
+# start off the counter to 3 on page load.
+storage["checkbox_num"] = 3
+def print_to_do_item(ev):
     new_to_do_item = doc.get(selector='#new-todo')
+    # Get the text from input box
     new_to_do_value = new_to_do_item[0].value
     whole_list = doc.get(selector='#todo-list')
     # Generate a new to-do item view using the Brython html object
     new_view = html.LI()
     new_view <= html.DIV(Class="view")
-    new_view <= html.INPUT(Class="toggle", type="checkbox")
-    new_view <= html.LABEL(new_to_do_value)
+    new_view <= html.INPUT(Class="toggle", type="checkbox", Id=storage["checkbox_num"])
+    new_view <= html.LABEL(new_to_do_value, Class="to_do_text", Id="label_"+storage["checkbox_num"])
     new_view <=html.BUTTON(Class="destroy")
     whole_list[0] <= new_view
     new_to_do_item[0].value = ""
+    storage["checkbox_num"] = int(storage["checkbox_num"])+1
+    bind_complete_to_checkbox()
 
+# Bind event handler to submit button.
 submit_butn = doc.get(selector='.submit_button')
-print(submit_butn)
-submit_butn[0].bind('click', print_hello)
+submit_butn[0].bind('click', print_to_do_item)
 
+
+def strike_thru(ev):
+    """ Strike through the label."""
+    label_to_strike_thru = doc.get(selector='label#label_' +str(ev.target.id))
+    # Use DOM API to add a CSS class to 1st element of list
+    label_to_strike_thru[0].classList.add("completed")
+
+# Bind event handler to checkbox.
+def bind_complete_to_checkbox():
+    toggle_buttons = doc.get(selector='.toggle')
+    for button in toggle_buttons:
+        button.bind('click', strike_thru)
+
+def delete_item(ev):
+    """Delete the element"""
+    item_to_delete =doc.get(selector='label#label_' +str(ev.target.id))
 </script>
 </html>

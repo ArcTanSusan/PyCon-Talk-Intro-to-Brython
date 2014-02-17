@@ -16,11 +16,14 @@ from browser import doc, html
 start_num =1
 
 def show_popup(start_num):
-    alert("BEFORE: "  + str(start_num))     # start_num = 1
+    print("BEFORE: "  + str(start_num))     # start_num = 1
     start_num = 42
-    alert("AFTER: " + str(start_num))       # start_num = 42
+    print("AFTER: " + str(start_num))       # start_num = 42
+    print(type(str(start_num)))
+    print("Next, print an integer: ")
+    print(int(start_num))
+    print(type(int(start_num)))
 show_popup(start_num)
-
 
 </script>
 </html>
