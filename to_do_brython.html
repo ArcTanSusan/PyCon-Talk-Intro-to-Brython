@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href='css/base.css'>
 </head>
 
-<body onload="brython(1)">
+<body onload="brython(1)" class="learn_bar">
     <header id="header">
                 <h1>todos</h1>
                 <input id="new-todo" placeholder="What needs to be done?" autofocus="">
@@ -14,32 +14,35 @@
     <section id="main">
             <ul id="todo-list">
                 <li>
-                <div class="view">
-                    <input class="toggle" type="checkbox"  id="1">
-                    <label class="to_do_text" id="label_1">finish brython app: to-do list</label>
-                    <button class="destroy"></button>
-                </div>
-                <input class="edit" value="finish brython app: to-do list">
-                </li><li>
-                <div class="view">
-                    <input class="toggle" type="checkbox" id="2">
-                    <label class="to_do_text" id="label_2">make tea</label>
-                    <button class="destroy"></button>
-                </div>
-                <input class="edit" value="make the pycon presentation slides" >
+                    <div class="view" id="view_1">
+                        <input class="toggle" type="checkbox"  id="1">
+                        <label class="to_do_text" id="label_1">finish brython app: to-do list</label>
+                        <button class="destroy" id="destroy_1"></button>
+                    </div>
+                    <input class="edit" value="finish brython app: to-do list">
+                </li>
+                <li>
+                    <div class="view" id="view_2">
+                        <input class="toggle" type="checkbox" id="2">
+                        <label class="to_do_text" id="label_2">make tea</label>
+                        <button class="destroy" id="destroy_2"></button>
+                    </div>
+                    <input class="edit" value="make the pycon presentation slides" >
                 </li>
             </ul>
     </section>
+    <footer id="info">
+        <p>Double-click to edit a todo</p>
+        <p>Original design was written by <a href="https://github.com/addyosmani">Addy Osmani</a></p>
+        <p>Cribbed from <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
 </body>
 
 <script type="text/python">
 from browser import doc, html
 from browser.local_storage import storage
 
-# Bind all the checkboxes (just 2) to the event handler.
-# bind_complete_to_checkbox()
-
-# start off the counter to 3 on page load.
+# start off the counter at 3 on page load.
 storage["checkbox_num"] = 3
 def print_to_do_item(ev):
     new_to_do_item = doc.get(selector='#new-todo')
@@ -48,34 +51,55 @@ def print_to_do_item(ev):
     whole_list = doc.get(selector='#todo-list')
     # Generate a new to-do item view using the Brython html object
     new_view = html.LI()
-    new_view <= html.DIV(Class="view")
+    new_view <= html.DIV(Class="view", Id="view_"+storage["checkbox_num"])
     new_view <= html.INPUT(Class="toggle", type="checkbox", Id=storage["checkbox_num"])
     new_view <= html.LABEL(new_to_do_value, Class="to_do_text", Id="label_"+storage["checkbox_num"])
-    new_view <=html.BUTTON(Class="destroy")
+    new_view <=html.BUTTON(Class="destroy", Id="destroy_"+storage["checkbox_num"])
     whole_list[0] <= new_view
     new_to_do_item[0].value = ""
     storage["checkbox_num"] = int(storage["checkbox_num"])+1
-    bind_complete_to_checkbox()
-
-# Bind event handler to submit button.
-submit_butn = doc.get(selector='.submit_button')
-submit_butn[0].bind('click', print_to_do_item)
-
+    # Bind all the to-do items with event handlers, so they can be struck thru and deleted
+    bind_strike_thru_to_checkbox()
+    bind_delete_to_items()
 
 def strike_thru(ev):
-    """ Strike through the label."""
+    """ Strike through the label. """
     label_to_strike_thru = doc.get(selector='label#label_' +str(ev.target.id))
     # Use DOM API to add a CSS class to 1st element of list
     label_to_strike_thru[0].classList.add("completed")
 
 # Bind event handler to checkbox.
-def bind_complete_to_checkbox():
+def bind_strike_thru_to_checkbox():
+    """ Bind all checkbox buttons to this event handler. """
     toggle_buttons = doc.get(selector='.toggle')
     for button in toggle_buttons:
         button.bind('click', strike_thru)
 
+def bind_delete_to_items():
+    """ Bind all delete buttons to this event handler. """
+    to_do_items = doc.get(selector='.destroy')
+    for destroy_button in to_do_items:
+        destroy_button.bind('click', delete_item)
+
 def delete_item(ev):
-    """Delete the element"""
-    item_to_delete =doc.get(selector='label#label_' +str(ev.target.id))
+    """ Delete the to-do item. """
+    # Last element of the string is the id
+    id_only = ev.target.id[-1]
+    item_to_delete = doc.get(selector='.view#view_' + id_only)
+    print(ev.target.id)
+    print(item_to_delete[0].id)
+    item_to_delete[0].classList.add("invisible")
+    # del doc[".view#" +str(ev.target.id)]
+
+""" The onpage load functions get called here below: """
+# Bind event handler to submit button on page load.
+submit_butn = doc.get(selector='.submit_button')
+submit_butn[0].bind('click', print_to_do_item)
+
+# Bind all the checkboxes (just 2) to the event handler on page load.
+bind_strike_thru_to_checkbox()
+
+# Bind the delete buttons to the event handler on page load.
+bind_delete_to_items()
 </script>
 </html>

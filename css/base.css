@@ -4,6 +4,7 @@ body {
     padding: 0;
 }
 
+
 button {
     margin: 0;
     padding: 0;
@@ -164,7 +165,7 @@ label[for='toggle-all'] {
 }
 
 #toggle-all:before {
-    content: '>>';
+    content: "";
     font-size: 28px;
     color: #d9d9d9;
     padding: 0 25px 7px;
@@ -247,6 +248,12 @@ label[for='toggle-all'] {
     line-height: 1.2;
     -webkit-transition: color 0.4s;
     transition: color 0.4s;
+}
+
+.invisible {
+    display: none;
+    color: red;
+    text-decoration: line-through;
 }
 
 .completed {
