@@ -37,25 +37,20 @@ all_comments =  doc.get(selector='.one_comment') # an array object
 for comment in all_comments:
     comment.classList.add("hidden")
 
+# Initialize the storage count at 4.
 storage['count'] = 4
-count =str(storage['count'])
 
 button = doc.get(selector='.show_more')
 
 def show_additional_comment(ev):
-    next_comment_num = '#comment'+str(storage['count']))
+    next_comment_num = '#comment'+storage['count']
     next_comment = doc.get(selector=next_comment_num)
     for comment in next_comment:
         comment.classList.remove("hidden")
         comment.classList.add("visible")
-    storage['count'] = 4
-    count =str(storage['count'])
-    # alert(count)
-    # count = int(count)
-    # alert(count)
-    # alert(type(count))
-    count +=1
+    storage['count'] =  int(storage['count'])+1
 
+# Bind the button to a click event handler.
 button[0].bind('click', show_additional_comment)
 </script>
 </html>

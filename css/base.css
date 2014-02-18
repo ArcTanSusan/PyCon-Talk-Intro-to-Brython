@@ -250,12 +250,6 @@ label[for='toggle-all'] {
     transition: color 0.4s;
 }
 
-.invisible {
-    display: none;
-    color: red;
-    text-decoration: line-through;
-}
-
 .completed {
     color: #a9a9a9;
     text-decoration: line-through;
@@ -285,7 +279,7 @@ label[for='toggle-all'] {
 }
 
 #todo-list li .destroy:after {
-    content: 'X';
+    content: "X";
 }
 
 #todo-list li:hover .destroy {
