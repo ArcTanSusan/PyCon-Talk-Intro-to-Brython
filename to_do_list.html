@@ -4,32 +4,67 @@
 <link rel="stylesheet" type="text/css" href='css/base.css'>
 </head>
 
-<body onload="brython(1)">
+<body class="learn_bar">
     <header id="header">
                 <h1>todos</h1>
                 <input id="new-todo" placeholder="What needs to be done?" autofocus="">
+                <center><button type="button" class="btn btn-primary btn-lg submit_button">Submit</button></center>
     </header>
-    <input class="submit_button" type="checkbox" name="submit" value="submit">Submit
+
     <section id="main">
             <ul id="todo-list">
                 <li>
-                <div class="view">
-                    <input class="toggle" type="checkbox" id="1">
-                    <label>finish brython app: to-do list</label>
-                    <button class="destroy"></button>
-                </div>
-                <input class="edit" value="finish brython app: to-do list">
-                </li><li>
-                <div class="view">
-                    <input class="toggle" type="checkbox" id="2">
-                    <label>make the pycon presentation slides</label>
-                    <button class="destroy"></button>
-                </div>
-                <input class="edit" value="make the pycon presentation slides">
+                    <div class="view" id="view_1">
+                        <input class="toggle" type="checkbox"  id="1">
+                        <label class="to_do_text" id="label_1">Finish brython app: to-do list</label>
+                        <button class="destroy" id="destroy_1"></button>
+                    </div>
+                    <input class="edit">
+                </li>
+                <li>
+                    <div class="view" id="view_2">
+                        <input class="toggle" type="checkbox" id="2">
+                        <label class="to_do_text" id="label_2">Make a cup of tea</label>
+                        <button class="destroy" id="destroy_2"></button>
+                    </div>
+                    <input class="edit">
                 </li>
             </ul>
+            <button class="clear_all">clear completed todos</button>
     </section>
+
+    <footer id="info">
+        <p>Double-click to edit a todo</p>
+        <p>Original design was written by <a href="https://github.com/addyosmani">Addy Osmani</a></p>
+        <p>Cribbed from <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
 </body>
 
 <script type="text/javascript">
+    var submit_butn = $(".submit_button");
+    var to_do_count = 2;
+
+    function print_to_do_item(new_to_do) {
+        to_do_count += 1;
+        var list_element = $("<li>");
+        var entire_list = $("#todo-list");
+        var new_view = $("<div class='view' id='view_' "+ to_do_count.toString() + ">");
+        var new_to_do = $("<label class='to_do_text' id='label_2'>"+ new_to_do +"</label>");
+        var new_input_checkbox = $("<input class='toggle' type='checkbox' id="+ to_do_count.toString() + ">");
+        var destroy_button = $("<button class='destroy' id='destroy_2'></button>");
+        var edit_input = $("<input class='edit'>");
+        // Create the new_view with its child elements: new_to_do text label, checkbox btton, destroy button.
+        new_view.append(new_to_do).append(new_input_checkbox).append(destroy_button);
+        // Edit input button goes at end of the list element
+        list_element.append(new_view).append(edit_input);
+        entire_list.append(list_element);
+        console.log("to_do_count: " + to_do_count);
+    }
+
+    submit_butn.click(function( ){
+        var new_to_do = $("#new-todo").val();
+        print_to_do_item(new_to_do);
+        // Clear the input value.
+        new_to_do = $("#new-todo").val("")
+    })
 </script>
