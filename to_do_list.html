@@ -43,28 +43,68 @@
 <script type="text/javascript">
     var submit_butn = $(".submit_button");
     var to_do_count = 2;
+    var checkbox_buttons = $(".toggle");
+    var destroy_buttons = $(".destroy");
+    var clear_all_button = $(".clear_all");
 
     function print_to_do_item(new_to_do) {
         to_do_count += 1;
         var list_element = $("<li>");
         var entire_list = $("#todo-list");
-        var new_view = $("<div class='view' id='view_' "+ to_do_count.toString() + ">");
-        var new_to_do = $("<label class='to_do_text' id='label_2'>"+ new_to_do +"</label>");
-        var new_input_checkbox = $("<input class='toggle' type='checkbox' id="+ to_do_count.toString() + ">");
-        var destroy_button = $("<button class='destroy' id='destroy_2'></button>");
+        var new_view = $("<div class='view'>");
+        // Set the id attribute. Doing this entirely in HTML in above line is a pain.
+        new_view.attr("id", "view_"+ to_do_count.toString());
+        var new_to_do = $("<label class='to_do_text'>"+ new_to_do +"</label>");
+        new_to_do.attr("id", "label_" + to_do_count.toString());
+        var new_input_checkbox = $("<input class='toggle' type='checkbox'>");
+        new_input_checkbox.attr("id", to_do_count.toString());
+        // Bind event handler to the new input  checkbox.
+        new_input_checkbox.bind("click", mark_as_completed);
+        var destroy_button = $("<button class='destroy'></button>");
+        destroy_button.attr("id", to_do_count.toString());
+        // Bind event handler to the new destroy button.
+        destroy_button.bind("click", delete_item);
         var edit_input = $("<input class='edit'>");
+        edit_input.attr("id", to_do_count.toString());
+
         // Create the new_view with its child elements: new_to_do text label, checkbox btton, destroy button.
         new_view.append(new_to_do).append(new_input_checkbox).append(destroy_button);
         // Edit input button goes at end of the list element
         list_element.append(new_view).append(edit_input);
         entire_list.append(list_element);
-        console.log("to_do_count: " + to_do_count);
     }
 
-    submit_butn.click(function( ){
+    submit_butn.click(function( ) {
         var new_to_do = $("#new-todo").val();
         print_to_do_item(new_to_do);
         // Clear the input value.
         new_to_do = $("#new-todo").val("")
-    })
+    });
+
+    checkbox_buttons.bind("click", mark_as_completed);
+    destroy_buttons.bind("click", delete_item);
+    clear_all_button.bind("click", clear_all_completed);
+
+    function delete_item(ev) {
+        var id_item_to_delete = ev.target.id;  // the whole string "destroy_1" is the id
+        var item_to_delete = $(".view#view_" + id_item_to_delete.slice(-1));
+        item_to_delete.remove();
+    };
+
+    function mark_as_completed(ev) {
+        var checkbox_id_string = ev.target.id;
+        var checkbox_clicked = $(".to_do_text#label_" + checkbox_id_string);
+        checkbox_clicked.addClass("completed");
+    };
+
+    function clear_all_completed() {
+        var completed_to_dos = $(".to_do_text.completed");
+        var completed_item, completed_item_id;
+        for (var item_count=0;item_count<completed_to_dos.length;item_count++) {
+            completed_item_id = completed_to_dos[item_count].id;
+            // "label_1" is the string in completed_item_id, so get the last character.
+            completed_item = $(".view#view_" + completed_item_id.slice(-1));
+            completed_item.remove();
+        }
+    };
 </script>

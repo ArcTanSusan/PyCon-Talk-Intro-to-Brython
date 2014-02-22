@@ -40,81 +40,81 @@
     </footer>
 </body>
 <script type="text/python">
-from browser import doc, html
-from browser.local_storage import storage
+    from browser import doc, html
+    from browser.local_storage import storage
 
-# start off the counter at 3 on page load.
-storage["checkbox_num"] = 3
-def print_to_do_item(ev):
-    new_to_do_item = doc.get(selector='#new-todo')
-    # Get the text from input box
-    new_to_do_value = new_to_do_item[0].value
-    whole_list = doc.get(selector='#todo-list')
-    # Generate a new to-do item view using the Brython html object
-    new_view = html.LI()
-    # The new view div contains several embedded items, including an input, label, and button.
-    new_view_div = html.DIV(Class="view", Id="view_"+storage["checkbox_num"])
-    new_view <= new_view_div
-    new_view_div <= html.INPUT(Class="toggle", type="checkbox", Id=storage["checkbox_num"])
-    new_view_div <= html.LABEL(new_to_do_value, Class="to_do_text", Id="label_"+storage["checkbox_num"])
-    new_view_div <=html.BUTTON(Class="destroy", Id="destroy_"+storage["checkbox_num"])
-    whole_list[0] <= new_view
-    new_to_do_item[0].value = ""
-    storage["checkbox_num"] = int(storage["checkbox_num"])+1
-    # Bind all the to-do items with event handlers, so they can be struck thru and deleted
-    bind_strike_thru_to_checkbox()
-    bind_delete_to_items()
+    # start off the counter at 3 on page load.
+    storage["checkbox_num"] = 3
+    def print_to_do_item(ev):
+        new_to_do_item = doc.get(selector='#new-todo')
+        # Get the text from input box
+        new_to_do_value = new_to_do_item[0].value
+        whole_list = doc.get(selector='#todo-list')
+        # Generate a new to-do item view using the Brython html object
+        new_view = html.LI()
+        # The new view div contains several embedded items, including an input, label, and button.
+        new_view_div = html.DIV(Class="view", Id="view_"+storage["checkbox_num"])
+        new_view <= new_view_div
+        new_view_div <= html.INPUT(Class="toggle", type="checkbox", Id=storage["checkbox_num"])
+        new_view_div <= html.LABEL(new_to_do_value, Class="to_do_text", Id="label_"+storage["checkbox_num"])
+        new_view_div <=html.BUTTON(Class="destroy", Id="destroy_"+storage["checkbox_num"])
+        whole_list[0] <= new_view
+        new_to_do_item[0].value = ""
+        storage["checkbox_num"] = int(storage["checkbox_num"])+1
+        # Bind all the to-do items with event handlers, so they can be struck thru and deleted
+        bind_strike_thru_to_checkbox()
+        bind_delete_to_items()
 
-def strike_thru(ev):
-    """ Strike through the label. """
-    label_to_strike_thru = doc.get(selector='label#label_' +str(ev.target.id))
-    # Use DOM API to add a CSS class to 1st element of list
-    label_to_strike_thru[0].classList.add("completed")
+    def strike_thru(ev):
+        """ Strike through the label. """
+        label_to_strike_thru = doc.get(selector='label#label_' +str(ev.target.id))
+        # Use DOM API to add a CSS class to 1st element of list
+        label_to_strike_thru[0].classList.add("completed")
 
-# Bind event handler to checkbox.
-def bind_strike_thru_to_checkbox():
-    """ Bind all checkbox buttons to this event handler. """
-    toggle_buttons = doc.get(selector='.toggle')
-    for button in toggle_buttons:
-        button.bind('click', strike_thru)
+    # Bind event handler to checkbox.
+    def bind_strike_thru_to_checkbox():
+        """ Bind all checkbox buttons to this event handler. """
+        toggle_buttons = doc.get(selector='.toggle')
+        for button in toggle_buttons:
+            button.bind('click', strike_thru)
 
-def bind_delete_to_items():
-    """ Bind all delete buttons to this event handler. """
-    to_do_items = doc.get(selector='.destroy')
-    for destroy_button in to_do_items:
-        destroy_button.bind('click', delete_item)
+    def bind_delete_to_items():
+        """ Bind all delete buttons to this event handler. """
+        to_do_items = doc.get(selector='.destroy')
+        for destroy_button in to_do_items:
+            destroy_button.bind('click', delete_item)
 
-def delete_item(ev):
-    """ Delete the to-do item. """
-    # Last element of the string is the id
-    id_only = ev.target.id[-1]
-    item_to_delete = doc.get(selector='.view#view_' + id_only)
-    del doc["view_" +id_only]
-
-def  bind_clear_all_button():
-    """ Bind the clear all button to this event handler. """
-    clear_all_butn = doc.get(selector=".clear_all")
-    clear_all_butn[0].bind("click", clear_all_completed)
-
-def clear_all_completed(ev):
-    """ Clear all completed items. """
-    completed_items = doc.get(selector=".completed")
-    for item in completed_items:
-        id_only = item.id[-1]
+    def delete_item(ev):
+        """ Delete the to-do item. """
+        # Last element of the string is the id
+        id_only = ev.target.id[-1]
+        item_to_delete = doc.get(selector='.view#view_' + id_only)
         del doc["view_" +id_only]
 
-""" The onpage load functions get called here below: """
-# Bind event handler to submit button on page load.
-submit_butn = doc.get(selector='.submit_button')
-submit_butn[0].bind('click', print_to_do_item)
+    def  bind_clear_all_button():
+        """ Bind the clear all button to this event handler. """
+        clear_all_butn = doc.get(selector=".clear_all")
+        clear_all_butn[0].bind("click", clear_all_completed)
 
-# Bind all the checkboxes (just 2) to the event handler on page load.
-bind_strike_thru_to_checkbox()
+    def clear_all_completed(ev):
+        """ Clear all completed items. """
+        completed_items = doc.get(selector=".completed")
+        for item in completed_items:
+            id_only = item.id[-1]
+            del doc["view_" +id_only]
 
-# Bind the delete buttons to the event handler on page load.
-bind_delete_to_items()
+    """ The onpage load functions get called here below: """
+    # Bind event handler to submit button on page load.
+    submit_butn = doc.get(selector='.submit_button')
+    submit_butn[0].bind('click', print_to_do_item)
 
-# Bind the Clear All box to the event handler on page load.
-bind_clear_all_button()
+    # Bind all the checkboxes (just 2) to the event handler on page load.
+    bind_strike_thru_to_checkbox()
+
+    # Bind the delete buttons to the event handler on page load.
+    bind_delete_to_items()
+
+    # Bind the Clear All box to the event handler on page load.
+    bind_clear_all_button()
 </script>
 </html>
