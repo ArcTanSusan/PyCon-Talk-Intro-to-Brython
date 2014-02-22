@@ -34,7 +34,6 @@
     </section>
 
     <footer id="info">
-        <p>Double-click to edit a todo</p>
         <p>Original design was written by <a href="https://github.com/addyosmani">Addy Osmani</a></p>
         <p>Cribbed from <a href="http://todomvc.com">TodoMVC</a></p>
     </footer>
@@ -108,13 +107,9 @@
     submit_butn = doc.get(selector='.submit_button')
     submit_butn[0].bind('click', print_to_do_item)
 
-    # Bind all the checkboxes (just 2) to the event handler on page load.
+    # Bind all the checkboxes (just 2), delete buttons, clear all button to appropriate event handlers on page load.
     bind_strike_thru_to_checkbox()
-
-    # Bind the delete buttons to the event handler on page load.
     bind_delete_to_items()
-
-    # Bind the Clear All box to the event handler on page load.
     bind_clear_all_button()
 </script>
 </html>
