@@ -51,7 +51,7 @@
         var list_element = $("<li>");
         var entire_list = $("#todo-list");
         var new_view = $("<div class='view'>");
-        // Set the id attribute. Doing this entirely in HTML in above line is a pain.
+        // Set the id attribute for every new html element in the to-do item. Doing this entirely in HTML in above line is a pain.
         new_view.attr("id", "view_"+ to_do_count.toString());
         var new_to_do = $("<label class='to_do_text'>"+ new_to_do +"</label>");
         new_to_do.attr("id", "label_" + to_do_count.toString());
