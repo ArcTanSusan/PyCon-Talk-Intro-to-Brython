@@ -4,10 +4,14 @@
 </head>
 <body onload="brython()">
 <script type="text/python">
+
+"""
+A simple button-click app in Brython.
+"""
 from browser import doc
 def echo():
     alert(doc["zone"].value)
-    
+
 from browser.html import A,B
 doc <= B("Brython ")+"is an implementation of "
 doc <= A("Python",href="http://www.python.org")+" for web browsers"
