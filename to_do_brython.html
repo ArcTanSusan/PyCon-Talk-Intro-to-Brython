@@ -61,6 +61,7 @@
         new_to_do_item[0].value = ""
         storage["checkbox_num"] = int(storage["checkbox_num"])+1
         # Bind all the to-do items with event handlers, so they can be struck thru and deleted
+        # TODO: not efficient, because functions iterate thru all the elements
         bind_strike_thru_to_checkbox()
         bind_delete_to_items()
 
